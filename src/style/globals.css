@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest-950: #02140d;
+  --color-forest-900: #052217;
+  --color-forest-800: #0a3626;
+  --color-forest-700: #124d37;
+  --color-forest-600: #1d694c;
+
+  --color-chai-DEFAULT: #AC5012;
+  --color-chai-dark: #8c3e0a;
+  --color-chai-light: #d47029;
+  --color-chai-subtle: #f4dfcd;
+
+  --color-cream-light: #FBF5EC;
+  --color-cream-DEFAULT: #F5E8D3;
+  --color-cream-warm: #EBD6BC;
+  --color-cream-dark: #D4BA97;
+
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), Manrope, sans-serif;
+
+  --tracking-widest-2: 0.2em;
+  --tracking-widest-3: 0.3em;
+
+  --color-brand-forest: #052217;
+  --color-brand-paper: #FBF5EC;
+  --color-brand-orange: #AC5012;
+  --color-brand-orange-light: #d47029;
+  --color-brand-deep-orange: #8c3e0a;
+}
+
+:root {
+  --background: 42 35% 95%;
+  --foreground: 165 78% 8%;
+  --card: 42 35% 95%;
+  --card-foreground: 165 78% 8%;
+  --popover: 42 35% 95%;
+  --popover-foreground: 165 78% 8%;
+  --primary: 165 78% 8%;
+  --primary-foreground: 42 35% 95%;
+  --secondary: 36 46% 83%;
+  --secondary-foreground: 165 78% 8%;
+  --muted: 36 46% 83%;
+  --muted-foreground: 165 20% 30%;
+  --accent: 21 84% 37%;
+  --accent-foreground: 42 35% 95%;
+  --destructive: 0 72% 45%;
+  --destructive-foreground: 42 35% 95%;
+  --border: 36 30% 70%;
+  --input: 36 30% 70%;
+  --ring: 21 84% 37%;
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream-light text-forest-900;
+    font-feature-settings: "ss01", "cv01", "cv02";
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #AC5012;
+    color: #FBF5EC;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-[0.7rem] uppercase tracking-widest-3 font-medium;
+  }
+  .display-xl {
+    @apply font-display font-light leading-[0.92] tracking-tight;
+  }
+  .display-lg {
+    @apply font-display font-light leading-[0.95] tracking-tight;
+  }
+  .display-md {
+    @apply font-display font-normal leading-[1.05] tracking-tight;
+  }
+  .editorial-line {
+    @apply block overflow-hidden;
+  }
+  .clip-reveal {
+    clip-path: inset(0 0 100% 0);
+    will-change: clip-path;
+  }
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-0.5 h-px w-0 bg-current transition-all duration-500 ease-out;
+  }
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-forest-900 text-cream-light px-7 py-3.5 text-[0.7rem] uppercase tracking-widest-2 font-medium transition-all duration-300 hover:bg-chai-DEFAULT;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-current px-2 py-2 text-[0.7rem] uppercase tracking-widest-2 font-medium transition-colors duration-300 hover:text-chai-DEFAULT;
+  }
+  .paper-texture {
+    position: relative;
+  }
+  .paper-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    z-index: 1;
+  }
+  .vignette::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(5,34,23,0.45) 100%);
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .clip-reveal { clip-path: inset(0 0 0 0) !important; }
+}
+
